@@ -1,15 +1,13 @@
-import {
-  PRIMITIVES_TOKEN_NAME,
-  SEMANTICS_TOKEN_NAME,
-  COLORS_TOKEN_NAME,
-} from '../config.mjs';
 import findToken from './findToken.mjs';
+import options from './parseArgvOptions.mjs';
 
 const parseSemanticsColorTokens = (primitivesColorTokens) => {
-  const semantics = findToken(SEMANTICS_TOKEN_NAME);
+  if (!options.semantics) return {};
+
+  const semantics = findToken(options.semantics);
   const colors = semantics.filter(({ type }) => type === 'color');
   const aliasColors = colors.filter(({ isAlias }) => isAlias);
-  const colorTokenReg = new RegExp(`^${COLORS_TOKEN_NAME}/`);
+  const colorTokenReg = new RegExp(`^${options.colors}/`);
 
   const colorTokens = {};
 
@@ -17,7 +15,7 @@ const parseSemanticsColorTokens = (primitivesColorTokens) => {
     let [colorKey, variant] = color.name.replace(colorTokenReg, '').split('/');
     let colorValue = color.value;
 
-    if (colorValue.collection === PRIMITIVES_TOKEN_NAME) {
+    if (colorValue.collection === options.primitives) {
       const [k, v] = colorValue.name.replace(colorTokenReg, '').split('/');
       colorTokens[colorKey] = colorTokens[colorKey] ?? {};
       colorTokens[colorKey][variant] = primitivesColorTokens[k][v];
@@ -28,7 +26,7 @@ const parseSemanticsColorTokens = (primitivesColorTokens) => {
     let [colorKey, variant] = color.name.replace(colorTokenReg, '').split('/');
     let colorValue = color.value;
 
-    if (colorValue.collection === SEMANTICS_TOKEN_NAME) {
+    if (colorValue.collection === options.semantics) {
       const [k, v] = colorValue.name.replace(colorTokenReg, '').split('/');
       colorTokens[colorKey] = colorTokens[colorKey] ?? {};
       colorTokens[colorKey][variant] = colorTokens[k][v];

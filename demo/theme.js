@@ -206,5 +206,11 @@ export default {
     "13": "52px",
     "half": "2px",
     "px": "1px"
+  },
+  "boxShadow": {
+    "100": "0px 4px 4px rgba(0,0,0,0.25), inset 0px 4px 4px rgba(0,0,0,0.25)"
+  },
+  "dropShadow": {
+    "100": "0px 4px 4px rgba(0,0,0,0.25), inset 0px 4px 4px rgba(0,0,0,0.25)"
   }
 }

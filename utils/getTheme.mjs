@@ -1,17 +1,21 @@
 import parseColorTokens from './parseColorTokens.mjs';
-import parseSpacingTokens from './parseSpacingTokens.mjs';
 import parseRadiusTokens from './parseRadiusTokens.mjs';
+import parseSpacingTokens from './parseSpacingTokens.mjs';
+import parseShadowTokens from './parseShadowTokens.mjs';
 
-/* 콜렉션 해석 ------------------------------------------------------------------- */
+const getTheme = () => {
+  const colors = parseColorTokens();
+  const spacing = parseSpacingTokens();
+  const radius = parseRadiusTokens();
+  const shadow = parseShadowTokens();
 
-const colors = parseColorTokens();
-const spacings = parseSpacingTokens();
-const radiuses = parseRadiusTokens();
-
-const getTheme = () => ({
-  colors,
-  borderRadius: radiuses,
-  spacing: spacings,
-});
+  return {
+    colors,
+    borderRadius: radius,
+    spacing: spacing,
+    boxShadow: shadow,
+    dropShadow: shadow,
+  };
+};
 
 export default getTheme;

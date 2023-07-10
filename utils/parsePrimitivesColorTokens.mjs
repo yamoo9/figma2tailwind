@@ -1,10 +1,11 @@
 import findToken from './findToken.mjs';
-import { PRIMITIVES_TOKEN_NAME, COLORS_TOKEN_NAME } from '../config.mjs';
+import options from './parseArgvOptions.mjs';
 
 const parsePrimitivesColorTokens = () => {
-  const primitives = findToken(PRIMITIVES_TOKEN_NAME);
+  const primitives = findToken(options.primitives);
+  if (!primitives) return;
   const colors = primitives.filter(({ type }) => type === 'color');
-  const colorTokenReg = new RegExp(`^${COLORS_TOKEN_NAME}/`);
+  const colorTokenReg = new RegExp(`^${options.colors}/`);
   const colorTokens = {};
 
   const pureColors = colors.filter(({ isAlias }) => !isAlias);

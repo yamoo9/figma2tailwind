@@ -1,13 +1,14 @@
-import { PRIMITIVES_TOKEN_NAME, RADIUSES_TOKEN_NAME } from '../config.mjs';
 import findToken from './findToken.mjs';
+import options from './parseArgvOptions.mjs';
 
 const parseRadiusTokens = () => {
-  const primitives = findToken(PRIMITIVES_TOKEN_NAME);
+  const primitives = findToken(options.primitives);
+  if (!primitives) return;
   const numberTokens = primitives.filter(({ type }) => type === 'number');
   const radiusTokens = {};
 
   numberTokens
-    .filter(({ name }) => name.includes(RADIUSES_TOKEN_NAME))
+    .filter(({ name }) => name.includes(options.radius))
     .forEach(({ name, value }) => {
       const [, v] = name.split('/');
       radiusTokens[v] = `${value}px`;

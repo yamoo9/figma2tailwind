@@ -6,4 +6,10 @@ const findToken = (tokenName) => {
   )?.modes[0]?.variables;
 };
 
+export const findEffectsToken = () => {
+  return parseVariables()?.collections?.find(
+    (collection) => collection.name === 'Effects'
+  )?.modes[0]?.variables;
+};
+
 export default findToken;
